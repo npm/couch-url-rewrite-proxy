@@ -1,0 +1,33 @@
+{
+  "name": "@npm/couch-url-rewrite-proxy",
+  "version": "1.0.0",
+  "description": "a proxy that rewrites URLs on their way out of couch, making registry migrations easier",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "standard",
+    "test": "nyc mocha test.js",
+    "release": "standard-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/npm/couch-url-rewrite-proxy.git"
+  },
+  "keywords": [
+    "proxy",
+    "couch",
+    "rewrite"
+  ],
+  "author": "Ben Coe <ben@npmjs.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/npm/couch-url-rewrite-proxy/issues"
+  },
+  "homepage": "https://github.com/npm/couch-url-rewrite-proxy#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3",
+    "nyc": "^6.6.1",
+    "standard": "^7.1.2",
+    "standard-version": "^2.3.1"
+  }
+}
