@@ -2,11 +2,11 @@
   "name": "@npm/couch-url-rewrite-proxy",
   "version": "1.0.0",
   "description": "a proxy that rewrites URLs on their way out of couch, making registry migrations easier",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "standard",
-    "test": "nyc mocha test.js",
+    "test": "nyc mocha test/*.js",
     "release": "standard-version"
   },
   "repository": {
@@ -28,8 +28,14 @@
     "chai": "^3.5.0",
     "coveralls": "^2.11.9",
     "mocha": "^2.5.3",
+    "nock": "^8.0.0",
     "nyc": "^6.6.1",
     "standard": "^7.1.2",
-    "standard-version": "^2.3.1"
+    "standard-version": "^2.3.1",
+    "tar.gz": "^1.0.5"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "request": "^2.72.0"
   }
 }
