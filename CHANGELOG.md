@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/npm/couch-url-rewrite-proxy/compare/v1.1.0...v1.1.1) (2016-07-07)
+
+
+### Bug Fixes
+
+* also add req param parsing ([ee8ae12](https://github.com/npm/couch-url-rewrite-proxy/commit/ee8ae12))
+* need body-parser dependency TODO: add test for post ([fd0d821](https://github.com/npm/couch-url-rewrite-proxy/commit/fd0d821))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/npm/couch-url-rewrite-proxy/compare/v1.0.0...v1.1.0) (2016-07-07)
 
