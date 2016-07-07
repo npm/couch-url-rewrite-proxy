@@ -1,9 +1,12 @@
 var express = require('express')
 
 var app = express()
+var bodyParser = require('body-parser')
 var request = require('request')
 var npmUrls = require('@npm/npm-urls')
 var url = require('url')
+
+app.use(bodyParser.json())
 
 function CouchUrlRewriteProxy (opts) {
   function proxy (req, res, next) {
@@ -12,7 +15,7 @@ function CouchUrlRewriteProxy (opts) {
       url: url.resolve(opts.upstream, req.path),
       headers: req.headers,
       qs: req.query,
-      gzip: true,
+      json: true,
       strictSSL: false
     }
     req.headers.host = 'registry.npmjs.org'
@@ -50,13 +53,11 @@ function CouchUrlRewriteProxy (opts) {
 
 function rewriteUrls (res, status, body, frontDoorHost) {
   try {
-    var json = JSON.parse(body)
-    npmUrls.rewriteOldTarballUrls(frontDoorHost, json)
-    res.status(status).send(JSON.stringify(json))
+    npmUrls.rewriteOldTarballUrls(frontDoorHost, body)
   } catch (err) {
     console.error(err.message)
-    res.status(status).send(body)
   }
+  res.status(status).send(body)
 }
 
 module.exports = function (opts, cb) {
