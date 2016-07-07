@@ -13,32 +13,32 @@ function CouchUrlRewriteProxy (opts) {
       headers: req.headers,
       qs: req.query
     }
-    var pipe
     req.headers.host = 'registry.npmjs.org'
 
     if (~['PUT', 'POST', 'DELETE'].indexOf(req.method)) payload.body = req.body
 
+    var rewrite
     if (
       !req.path.match(/\/-\//) && // CouchDB API URLs.
       !req.path.match(/\.tgz$/) && // tarball URLs.
       req.method === 'GET' // we should only rewrite GET requests!
     ) {
-      pipe = false
+      rewrite = true
     } else {
-      pipe = true
+      rewrite = false
     }
 
     var r = request(payload, function (err, response, body) {
       var status = 500
       if (response && response.statusCode) status = response.statusCode
       if (err) res.status(status).send(body)
-      else if (!pipe) {
+      else if (rewrite) {
         rewriteUrls(res, status, body, opts.frontDoorHost)
       }
     })
 
     // only pipe if we're not performing rewrite.
-    if (pipe) r.pipe(res)
+    if (!rewrite) r.pipe(res)
   }
 
   ['put', 'post', 'delete', 'get', 'head'].forEach(function (method) {
