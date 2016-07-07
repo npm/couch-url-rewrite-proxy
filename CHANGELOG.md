@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/npm/couch-url-rewrite-proxy/compare/v1.0.0...v1.1.0) (2016-07-07)
+
+
+### Features
+
+* add bin for running proxy ([5aa60ca](https://github.com/npm/couch-url-rewrite-proxy/commit/5aa60ca))
+* proxy now rewrites package JSON as it is served ([#3](https://github.com/npm/couch-url-rewrite-proxy/issues/3)) ([5870a75](https://github.com/npm/couch-url-rewrite-proxy/commit/5870a75))
+* route tarballs directly through to the client ([#2](https://github.com/npm/couch-url-rewrite-proxy/issues/2)) ([a071e6c](https://github.com/npm/couch-url-rewrite-proxy/commit/a071e6c))
+
+
+
 <a name="1.0.0"></a>
 # 1.0.0 (2016-06-23)
 
