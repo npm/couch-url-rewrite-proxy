@@ -28,7 +28,6 @@ function CouchUrlRewriteProxy (opts) {
       pipe = true
     }
 
-    // tarball or API JSON (potentially a large blob).
     var r = request(payload, function (err, response, body) {
       var status = 500
       if (response && response.statusCode) status = response.statusCode
