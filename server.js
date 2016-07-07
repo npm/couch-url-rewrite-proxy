@@ -7,6 +7,7 @@ var npmUrls = require('@npm/npm-urls')
 var url = require('url')
 
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 function CouchUrlRewriteProxy (opts) {
   function proxy (req, res, next) {
