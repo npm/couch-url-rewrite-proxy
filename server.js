@@ -9,9 +9,11 @@ function CouchUrlRewriteProxy (opts) {
   function proxy (req, res, next) {
     var payload = {
       method: req.method,
-      url: url.resolve(opts.frontDoorHost, req.path),
+      url: url.resolve(opts.upstream, req.path),
       headers: req.headers,
-      qs: req.query
+      qs: req.query,
+      gzip: true,
+      strictSSL: false
     }
     req.headers.host = 'registry.npmjs.org'
 
@@ -58,7 +60,10 @@ function rewriteUrls (res, status, body, frontDoorHost) {
 }
 
 module.exports = function (opts, cb) {
+  cb = cb || function () {}
   CouchUrlRewriteProxy(opts)
+  console.info('routing', opts.port, 'to', opts.upstream)
+  console.info('rewriting to FRONT_DOOR_HOST =', opts.frontDoorHost)
   var server = app.listen(opts.port, function () {
     console.info('listening on ', opts.port)
     return cb(undefined, server)

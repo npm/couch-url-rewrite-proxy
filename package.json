@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "a proxy that rewrites URLs on their way out of couch, making registry migrations easier",
   "main": "server.js",
+  "bin": "bin/couch-url-rewrite-proxy.js",
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "standard",
@@ -37,6 +38,7 @@
   "dependencies": {
     "@npm/npm-urls": "^1.0.1",
     "express": "^4.14.0",
-    "request": "^2.72.0"
+    "request": "^2.72.0",
+    "yargs": "^4.7.1"
   }
 }
