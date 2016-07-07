@@ -2,6 +2,7 @@ var express = require('express')
 
 var app = express()
 var request = require('request')
+var npmUrls = require('@npm/npm-urls')
 var url = require('url')
 
 function CouchUrlRewriteProxy (opts) {
@@ -12,21 +13,49 @@ function CouchUrlRewriteProxy (opts) {
       headers: req.headers,
       qs: req.query
     }
+    var pipe
     req.headers.host = 'registry.npmjs.org'
 
     if (~['PUT', 'POST', 'DELETE'].indexOf(req.method)) payload.body = req.body
 
-    request(payload, function (err, response, body) {
+    if (
+      !req.path.match(/\/-\//) && // CouchDB API URLs.
+      !req.path.match(/\.tgz$/) && // tarball URLs.
+      req.method === 'GET' // we should only rewrite GET requests!
+    ) {
+      pipe = false
+    } else {
+      pipe = true
+    }
+
+    // tarball or API JSON (potentially a large blob).
+    var r = request(payload, function (err, response, body) {
       var status = 500
-      if (response && response.status) status = response.status
+      if (response && response.statusCode) status = response.statusCode
       if (err) res.status(status).send(body)
+      else if (!pipe) {
+        rewriteUrls(res, status, body, opts.frontDoorHost)
+      }
     })
-    .pipe(res)
+
+    // only pipe if we're not performing rewrite.
+    if (pipe) r.pipe(res)
   }
 
   ['put', 'post', 'delete', 'get', 'head'].forEach(function (method) {
     app[method](/.*/, proxy)
   })
+}
+
+function rewriteUrls (res, status, body, frontDoorHost) {
+  try {
+    var json = JSON.parse(body)
+    npmUrls.rewriteOldTarballUrls(frontDoorHost, json)
+    res.status(status).send(JSON.stringify(json))
+  } catch (err) {
+    console.error(err.message)
+    res.status(status).send(body)
+  }
 }
 
 module.exports = function (opts, cb) {
