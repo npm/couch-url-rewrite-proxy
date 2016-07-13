@@ -17,6 +17,7 @@ describe('couch-url-rewrite-proxy', function () {
   before(function (done) {
     proxy({
       port: 9999,
+      upstream: 'http://www.example.com',
       frontDoorHost: 'http://www.example.com'
     }, function (err, _server) {
       if (err) return done(err)
