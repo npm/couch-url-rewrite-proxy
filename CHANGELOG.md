@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/npm/couch-url-rewrite-proxy/compare/v1.0.0...v1.2.0) (2016-07-18)
+
+
+### Bug Fixes
+
+* allow for much larger body sizes ([#5](https://github.com/npm/couch-url-rewrite-proxy/issues/5)) ([d498cbc](https://github.com/npm/couch-url-rewrite-proxy/commit/d498cbc))
+
+
+### Features
+
+* create a bin for executing the rewrite proxy ([#4](https://github.com/npm/couch-url-rewrite-proxy/issues/4)) ([f01eef9](https://github.com/npm/couch-url-rewrite-proxy/commit/f01eef9))
+* proxy now rewrites package JSON as it is served ([#3](https://github.com/npm/couch-url-rewrite-proxy/issues/3)) ([5870a75](https://github.com/npm/couch-url-rewrite-proxy/commit/5870a75))
+* route tarballs directly through to the client ([#2](https://github.com/npm/couch-url-rewrite-proxy/issues/2)) ([a071e6c](https://github.com/npm/couch-url-rewrite-proxy/commit/a071e6c))
+
+
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/npm/couch-url-rewrite-proxy/compare/v1.1.0...v1.1.1) (2016-07-07)
 
