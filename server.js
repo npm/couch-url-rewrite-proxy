@@ -19,8 +19,6 @@ function CouchUrlRewriteProxy (opts) {
       json: true,
       strictSSL: false
     }
-    req.headers.host = 'registry.npmjs.org'
-
     if (~['PUT', 'POST', 'DELETE'].indexOf(req.method)) payload.body = req.body
 
     var rewrite
