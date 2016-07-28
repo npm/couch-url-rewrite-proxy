@@ -24,6 +24,7 @@ function CouchUrlRewriteProxy (opts) {
     var rewrite
     if (
       !req.path.match(/\/-\//) && // CouchDB API URLs.
+      !req.path.match(/\/_changes\/?/) && // Changes feed.
       !req.path.match(/\.tgz$/) && // tarball URLs.
       req.method === 'GET' // we should only rewrite GET requests!
     ) {
