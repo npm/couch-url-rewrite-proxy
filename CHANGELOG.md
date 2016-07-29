@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.2"></a>
+## [1.2.2](https://github.com/npm/couch-url-rewrite-proxy/compare/v1.2.1...v1.2.2) (2016-07-29)
+
+
+### Bug Fixes
+
+* pipe _changes directly through to upstream server ([#7](https://github.com/npm/couch-url-rewrite-proxy/issues/7)) ([a8b65a9](https://github.com/npm/couch-url-rewrite-proxy/commit/a8b65a9))
+
+
+
 <a name="1.2.1"></a>
 ## [1.2.1](https://github.com/npm/couch-url-rewrite-proxy/compare/v1.2.0...v1.2.1) (2016-07-28)
 
