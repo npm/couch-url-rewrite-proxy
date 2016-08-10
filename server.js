@@ -6,7 +6,7 @@ var request = require('request')
 var npmUrls = require('@npm/npm-urls')
 var url = require('url')
 
-app.use(bodyParser.json({ limit: '196mb' }))
+app.use(bodyParser.json({ limit: '196mb', strict: false }))
 app.use(bodyParser.urlencoded({ extended: false, limit: '196mb' }))
 
 function CouchUrlRewriteProxy (opts) {
