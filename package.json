@@ -1,6 +1,6 @@
 {
   "name": "@npm/couch-url-rewrite-proxy",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "a proxy that rewrites URLs on their way out of couch, making registry migrations easier",
   "main": "server.js",
   "bin": "bin/couch-url-rewrite-proxy.js",

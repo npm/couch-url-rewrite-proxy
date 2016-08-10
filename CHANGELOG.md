@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.3"></a>
+## [1.2.3](https://github.com/npm/couch-url-rewrite-proxy/compare/v1.2.2...v1.2.3) (2016-08-10)
+
+
+### Bug Fixes
+
+* failing to parse response from npm dist-tag add ([#8](https://github.com/npm/couch-url-rewrite-proxy/issues/8)) ([d9f4792](https://github.com/npm/couch-url-rewrite-proxy/commit/d9f4792))
+
+
+
 <a name="1.2.2"></a>
 ## [1.2.2](https://github.com/npm/couch-url-rewrite-proxy/compare/v1.2.1...v1.2.2) (2016-07-29)
 
