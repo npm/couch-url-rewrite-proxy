@@ -1,13 +1,22 @@
-var express = require('express')
+const express = require('express')
 
-var app = express()
-var bodyParser = require('body-parser')
-var request = require('request')
-var npmUrls = require('@npm/npm-urls')
-var url = require('url')
+const app = express()
+const bodyParser = require('body-parser')
+const request = require('request')
+const replify = require('replify')
+const rewrite = require('./lib/rewrite')
+
+const url = require('url')
 
 app.use(bodyParser.json({ limit: '196mb', strict: false }))
 app.use(bodyParser.urlencoded({ extended: false, limit: '196mb' }))
+
+// provide a repl; in case we continue to have
+// memory leaks in this proxy.
+replify('couch-url-rewrite-proxy', app)
+setInterval(() => {
+  if (typeof process.memoryUsage === 'function') console.log(process.memoryUsage())
+}, 15000)
 
 function CouchUrlRewriteProxy (opts) {
   function proxy (req, res, next) {
@@ -16,10 +25,13 @@ function CouchUrlRewriteProxy (opts) {
       url: url.resolve(opts.upstream, req.path),
       headers: req.headers,
       qs: req.query,
-      json: true,
+      json: false,
       strictSSL: false
     }
-    if (~['PUT', 'POST', 'DELETE'].indexOf(req.method)) payload.body = req.body
+    if (~['PUT', 'POST', 'DELETE'].indexOf(req.method)) {
+      payload.json = true
+      payload.body = req.body
+    }
 
     var rewrite
     if (
@@ -28,6 +40,7 @@ function CouchUrlRewriteProxy (opts) {
       !req.path.match(/\.tgz$/) && // tarball URLs.
       req.method === 'GET' // we should only rewrite GET requests!
     ) {
+      payload.gzip = true
       rewrite = true
     } else {
       rewrite = false
@@ -53,7 +66,7 @@ function CouchUrlRewriteProxy (opts) {
 
 function rewriteUrls (res, status, body, frontDoorHost) {
   try {
-    npmUrls.rewriteOldTarballUrls(frontDoorHost, body)
+    body = rewrite(body, frontDoorHost)
   } catch (err) {
     console.error(err.message)
   }
@@ -67,6 +80,6 @@ module.exports = function (opts, cb) {
   console.info('rewriting to FRONT_DOOR_HOST =', opts.frontDoorHost)
   var server = app.listen(opts.port, function () {
     console.info('listening on ', opts.port)
-    return cb(undefined, server)
+    return cb(null, server)
   })
 }

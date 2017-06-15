@@ -71,6 +71,103 @@ describe('couch-url-rewrite-proxy', function () {
     })
   })
 
+  it('rewrites gzipped JSON as it is served', function (done) {
+    var jsonPath = '/tiny-tarball'
+    var json = nock('http://www.example.com')
+      .get(jsonPath)
+      .reply(200, fs.readFileSync('./test/fixtures/lodash.gz'), {
+        'Content-Encoding': 'gzip'
+      })
+
+    request.get({
+      url: 'http://localhost:9999' + jsonPath,
+      json: true
+    }, function (err, res, body) {
+      if (err) return done(err)
+      json.done()
+      Object.keys(body.versions).forEach((version) => {
+        body.versions[version].dist.tarball.should.equal(`http://www.example.com/l/lodash/_attachments/lodash-${version}.tgz`)
+      })
+      return done()
+    })
+  })
+
+  it('rewrites multiple old-style tarball URLs', function (done) {
+    var jsonPath = '/tiny-tarball'
+    var json = nock('http://www.example.com')
+      .get(jsonPath)
+      .reply(200, fs.readFileSync('./test/fixtures/express.json'))
+
+    request.get({
+      url: 'http://localhost:9999' + jsonPath,
+      json: true
+    }, function (err, res, body) {
+      if (err) return done(err)
+      json.done()
+      Object.keys(body.versions).forEach((version) => {
+        body.versions[version].dist.tarball.should.match(/http:\/\/www.example.com\/e\/express\/_attachments\/express-.*/)
+      })
+      return done()
+    })
+  })
+
+  it('rewrites new-style scoped URLs', function (done) {
+    var jsonPath = '/tiny-tarball'
+    var json = nock('http://www.example.com')
+      .get(jsonPath)
+      .reply(200, fs.readFileSync('./test/fixtures/new-scoped.json'))
+
+    request.get({
+      url: 'http://localhost:9999' + jsonPath,
+      json: true
+    }, function (err, res, body) {
+      if (err) return done(err)
+      json.done()
+      Object.keys(body.versions).forEach((version) => {
+        body.versions[version].dist.tarball.should.equal(`http://www.example.com/@/@npm/restify-monitor/_attachments/restify-monitor-${version}.tgz`)
+      })
+      return done()
+    })
+  })
+
+  it('rewrites new-style unscoped URLs', function (done) {
+    var jsonPath = '/tiny-tarball'
+    var json = nock('http://www.example.com')
+      .get(jsonPath)
+      .reply(200, fs.readFileSync('./test/fixtures/new-unscoped.json'))
+
+    request.get({
+      url: 'http://localhost:9999' + jsonPath,
+      json: true
+    }, function (err, res, body) {
+      if (err) return done(err)
+      json.done()
+      Object.keys(body.versions).forEach((version) => {
+        body.versions[version].dist.tarball.should.equal(`http://www.example.com/y/yargs/_attachments/yargs-${version}.tgz`)
+      })
+      return done()
+    })
+  })
+
+  it('handles corgi documents', function (done) {
+    var jsonPath = '/tiny-tarball'
+    var json = nock('http://www.example.com')
+      .get(jsonPath)
+      .reply(200, fs.readFileSync('./test/fixtures/corgi.json'))
+
+    request.get({
+      url: 'http://localhost:9999' + jsonPath,
+      json: true
+    }, function (err, res, body) {
+      if (err) return done(err)
+      json.done()
+      Object.keys(body.versions).forEach((version) => {
+        body.versions[version].dist.tarball.should.equal(`http://www.example.com/c/chalk/_attachments/chalk-${version}.tgz`)
+      })
+      return done()
+    })
+  })
+
   it('handles a malformed JSON response', function (done) {
     var jsonPath = '/tiny-tarball'
     var json = nock('http://www.example.com')

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const proxy = require('../server')
 
-require('yargs')
+require('yargs') // eslint-disable-line
   .command(
     'start',
     'start the registry URL rewrite proxy',
