@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.4"></a>
+## [1.2.4](https://github.com/npm/couch-url-rewrite-proxy/compare/v1.2.3...v1.2.4) (2017-06-15)
+
+
+### Performance Improvements
+
+* switch to using String.replace() for changing couch origin ([ecca9fc](https://github.com/npm/couch-url-rewrite-proxy/commit/ecca9fc))
+
+
+
 <a name="1.2.3"></a>
 ## [1.2.3](https://github.com/npm/couch-url-rewrite-proxy/compare/v1.2.2...v1.2.3) (2016-08-10)
 
