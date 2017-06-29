@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/npm/couch-url-rewrite-proxy/compare/v1.3.0...v1.4.0) (2017-06-29)
+
+
+### Features
+
+* redact fields that should not be stored in CouchDB ([#10](https://github.com/npm/couch-url-rewrite-proxy/issues/10)) ([28c4871](https://github.com/npm/couch-url-rewrite-proxy/commit/28c4871))
+
+
+
 <a name="1.3.0"></a>
 ## [1.3.0](https://github.com/npm/couch-url-rewrite-proxy/compare/v1.2.3...v1.3.0) (2017-06-15)
 
