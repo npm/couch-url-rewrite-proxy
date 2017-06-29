@@ -185,6 +185,52 @@ describe('couch-url-rewrite-proxy', function () {
     })
   })
 
+  describe('redact fields', () => {
+    it('redacts fields that should not have been written to CouchDB', function (done) {
+      var jsonPath = '/tiny-tarball'
+      var json = nock('http://www.example.com')
+        .get(jsonPath)
+        .reply(200, fs.readFileSync('./test/fixtures/should-redact.json'))
+
+      request.get({
+        url: 'http://localhost:9999' + jsonPath,
+        json: true
+      }, function (err, res, body) {
+        if (err) return done(err)
+        json.done()
+        res.statusCode.should.equal(200)
+        const version = body.versions['1.0.0']
+        body.maintainers[0].sso.should.equal('[SECRET]')
+        version.maintainers[0].sso.should.equal('[SECRET]')
+        version._npmUser.sso.should.equal('[SECRET]')
+        return done()
+      })
+    })
+
+    it('does not redact fields if response does not resemble package.json', function (done) {
+      var jsonPath = '/login'
+      var json = nock('http://www.example.com')
+        .get(jsonPath)
+        .reply(200, {
+          // there's no versions field, so it doesn't
+          // look like package JSON.
+          name: 'some-name',
+          sso: 'http://super-secret'
+        })
+
+      request.get({
+        url: 'http://localhost:9999' + jsonPath,
+        json: true
+      }, function (err, res, body) {
+        if (err) return done(err)
+        json.done()
+        res.statusCode.should.equal(200)
+        body.sso.should.equal('http://super-secret')
+        return done()
+      })
+    })
+  })
+
   after(function () {
     server.close()
   })
