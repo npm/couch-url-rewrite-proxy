@@ -4,6 +4,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const request = require('request')
 const replify = require('replify')
+const redact = require('./lib/redact')
 const rewrite = require('./lib/rewrite')
 
 const url = require('url')
@@ -66,7 +67,7 @@ function CouchUrlRewriteProxy (opts) {
 
 function rewriteUrls (res, status, body, frontDoorHost) {
   try {
-    body = rewrite(body, frontDoorHost)
+    body = rewrite(redact(body), frontDoorHost)
   } catch (err) {
     console.error(err.message)
   }
