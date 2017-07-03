@@ -47,17 +47,19 @@ function CouchUrlRewriteProxy (opts) {
       rewrite = false
     }
 
-    var r = request(payload, function (err, response, body) {
-      var status = 500
-      if (response && response.statusCode) status = response.statusCode
-      if (err) res.status(status).send(body)
-      else if (rewrite) {
-        rewriteUrls(res, status, body, opts.frontDoorHost)
-      }
-    })
-
-    // only pipe if we're not performing rewrite.
-    if (!rewrite) r.pipe(res)
+    // see: https://github.com/request/request/issues/2478
+    if (!rewrite) {
+      request(payload).pipe(res)
+    } else {
+      request(payload, function (err, response, body) {
+        var status = 500
+        if (response && response.statusCode) status = response.statusCode
+        if (err) res.status(status).send(body)
+        else if (rewrite) {
+          rewriteUrls(res, status, body, opts.frontDoorHost)
+        }
+      })
+    }
   }
 
   ['put', 'post', 'delete', 'get', 'head'].forEach(function (method) {
