@@ -1,0 +1,12 @@
+.idea
+.git
+packages
+node_modules
+.travis.yml
+package-lock.json
+Dockerfile
+CHANGELOG.md
+README.md
+test-config.json
+test/
+.env.example

@@ -1,0 +1,18 @@
+name = "couch-url-rewrite-proxy"
+description = "a proxy that rewrites URLs on their way out of couch, making registry migrations easier"
+start = "./bin/couch-url-rewrite-proxy.js start"
+
+[environment]
+	FRONT_DOOR_URL = "{{front_door_url}}"
+	PORT = "{{port}}"
+	UPSTREAM_URL = "{{upstream_url}}"
+
+[default]
+	FRONT_DOOR_URL = "https://registry.example.com"
+	PORT = 5001
+	UPSTREAM_URL = "http://127.0.0.1:5000"
+
+[argument]
+	front-door-host = "FRONT_DOOR_HOST"
+	port = "PORT"
+	upstream = "UPSTREAM_URL"
