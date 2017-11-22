@@ -9,12 +9,12 @@ require('yargs') // eslint-disable-line
       return yargs
         .option('port', {
           alias: 'p',
-          default: 8080,
+          default: process.env.PORT || 8080,
           describe: 'what port should the proxy run on'
         })
         .option('upstream', {
           alias: 'u',
-          default: 'http://127.0.0.1:9999',
+          default: process.env.UPSTREAM_URL || 'http://127.0.0.1:9999',
           describe: 'what upstream should the proxy connect to'
         })
         .option('front-door-host', {
