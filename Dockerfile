@@ -6,6 +6,7 @@ MAINTAINER Alex Robson
 
 WORKDIR /app/src
 COPY ./bin/ /app/src/bin/
+COPY ./lib/ /app/src/lib/
 COPY ./package.json /app/src/
 COPY ./server.js /app/src/
 COPY ./.kicker.toml /app/src/
