@@ -6,10 +6,10 @@ node_js:
   - "6"
   - "8"
 before_install:
-  - npm i dockyard@latest -g
+  - npm i @npm-wharf/shipwright -g
   - printf "@npm:registry=https://enterprise.npmjs.com" >> ~/.npmrc
 
 after_success:
   - npm run coverage
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - dockyard build image --repo=npmjs --name=couch-url-rewrite-proxy
+  - shipwright build image --repo=npmjs --name=couch-url-rewrite-proxy
