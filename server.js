@@ -24,7 +24,9 @@ function CouchUrlRewriteProxy (opts) {
     var payload = {
       method: req.method,
       url: url.resolve(opts.upstream, req.path),
-      headers: req.headers,
+      headers: Object.assign(req.headers, {
+        host: 'registry.npmjs.org'
+      }),
       qs: req.query,
       json: false,
       strictSSL: false
