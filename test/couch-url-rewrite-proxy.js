@@ -65,7 +65,7 @@ describe('couch-url-rewrite-proxy', function () {
       if (err) return done(err)
       json.done()
       body.versions['1.0.0'].dist.tarball.should.equal(
-        'http://www.example.com/t/tiny-tarball/_attachments/tiny-tarball-1.0.0.tgz'
+        'http://www.example.com/tiny-tarball/-/tiny-tarball-1.0.0.tgz'
       )
       return done()
     })
@@ -86,7 +86,7 @@ describe('couch-url-rewrite-proxy', function () {
       if (err) return done(err)
       json.done()
       Object.keys(body.versions).forEach((version) => {
-        body.versions[version].dist.tarball.should.equal(`http://www.example.com/l/lodash/_attachments/lodash-${version}.tgz`)
+        body.versions[version].dist.tarball.should.equal(`http://www.example.com/lodash/-/lodash-${version}.tgz`)
       })
       return done()
     })
@@ -105,7 +105,7 @@ describe('couch-url-rewrite-proxy', function () {
       if (err) return done(err)
       json.done()
       Object.keys(body.versions).forEach((version) => {
-        body.versions[version].dist.tarball.should.match(/http:\/\/www.example.com\/e\/express\/_attachments\/express-.*/)
+        body.versions[version].dist.tarball.should.match(/http:\/\/www.example.com\/express\/-\/express-.*/)
       })
       return done()
     })
@@ -162,7 +162,7 @@ describe('couch-url-rewrite-proxy', function () {
       if (err) return done(err)
       json.done()
       Object.keys(body.versions).forEach((version) => {
-        body.versions[version].dist.tarball.should.equal(`http://www.example.com/c/chalk/_attachments/chalk-${version}.tgz`)
+        body.versions[version].dist.tarball.should.equal(`http://www.example.com/chalk/-/chalk-${version}.tgz`)
       })
       return done()
     })
