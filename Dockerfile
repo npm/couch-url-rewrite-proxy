@@ -8,12 +8,13 @@ WORKDIR /app/src
 COPY ./bin/ /app/src/bin/
 COPY ./lib/ /app/src/lib/
 COPY ./package.json /app/src/
+COPY ./package-lock.json /app/src/
 COPY ./server.js /app/src/
 COPY ./.kicker.toml /app/src/
 
 RUN echo '@npm:registry=https://enterprise.npmjs.com/' >> ~/.npmrc && \
 	cat ~/.npmrc && \
-	npm install && \
+	npm ci && \
 	rm ~/.npmrc
 
 RUN npm uninstall node-gyp -g && apk del python make g++ && rm -rf /var/cache/apk/*

@@ -3,7 +3,6 @@
 packages
 node_modules
 .travis.yml
-package-lock.json
 Dockerfile
 CHANGELOG.md
 README.md

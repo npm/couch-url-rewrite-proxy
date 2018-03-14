@@ -5,11 +5,25 @@ language: node_js
 node_js:
   - "6"
   - "8"
+
+git:
+  depth: false
+cache:
+  directories:
+  - .git
+
 before_install:
+  - npm i -g npm@latest
   - npm i @npm-wharf/shipwright -g
   - printf "@npm:registry=https://enterprise.npmjs.com" >> ~/.npmrc
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+
+install:
+  - npm ci
+
+script:
+  - npm test
+  - shipwright build image --repo=npmjs --name=couch-url-rewrite-proxy --tags=lm,v_s,miv,ma,b_v_c_s --cache-from-latest
 
 after_success:
-  - npm run coverage
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - shipwright build image --repo=npmjs --name=couch-url-rewrite-proxy
+  - npm run coverage  
