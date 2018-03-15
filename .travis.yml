@@ -23,7 +23,7 @@ install:
 
 script:
   - npm test
-  - shipwright build image --repo=npmjs --name=couch-url-rewrite-proxy --tags=lm,v_s,miv,ma,b_v_c_s --cache-from-latest
+  - shipwright build image --repo=npmjs --name=couch-url-rewrite-proxy --tags=lm,v_s,v,miv,ma,b,b_v_c_s --build-branches=master,qa,dev,deploy-staging,deploy-npme --cache-from-latest
 
 after_success:
   - npm run coverage  
