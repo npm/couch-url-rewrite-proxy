@@ -54,6 +54,7 @@ function CouchUrlRewriteProxy (opts) {
       request(payload).pipe(res)
     } else {
       request(payload, function (err, response, body) {
+        res.header('content-type', 'application/json')
         var status = 500
         if (response && response.statusCode) status = response.statusCode
         if (err) res.status(status).send(body)
