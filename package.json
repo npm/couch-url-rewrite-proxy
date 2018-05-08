@@ -1,6 +1,6 @@
 {
   "name": "@npm/couch-url-rewrite-proxy",
-  "version": "1.4.0-classic.0",
+  "version": "1.5.0-classic.0",
   "description": "a proxy that rewrites URLs on their way out of couch, making registry migrations easier",
   "main": "server.js",
   "bin": "bin/couch-url-rewrite-proxy.js",
@@ -39,7 +39,7 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "replify": "^1.2.0",
-    "request": "^2.81.0",
+    "request": "^2.85.0",
     "yargs": "^8.0.2"
   }
 }
