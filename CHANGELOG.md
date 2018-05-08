@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/npm/couch-url-rewrite-proxy/compare/v1.4.0...v1.5.0) (2018-05-08)
+
+
+### Bug Fixes
+
+* content type should be application/json ([#16](https://github.com/npm/couch-url-rewrite-proxy/issues/16)) ([fafb717](https://github.com/npm/couch-url-rewrite-proxy/commit/fafb717))
+* FRONT_DOOR_URL -> FRONT_DOOR_HOST ([bf92c1c](https://github.com/npm/couch-url-rewrite-proxy/commit/bf92c1c))
+* patch memory leak related to cb ([#11](https://github.com/npm/couch-url-rewrite-proxy/issues/11)) ([effb4a3](https://github.com/npm/couch-url-rewrite-proxy/commit/effb4a3))
+* return the original body if it does not appear to be JSON ([a677f62](https://github.com/npm/couch-url-rewrite-proxy/commit/a677f62))
+
+
+
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/npm/couch-url-rewrite-proxy/compare/v1.3.0...v1.4.0) (2017-06-29)
 
