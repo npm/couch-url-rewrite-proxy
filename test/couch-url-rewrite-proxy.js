@@ -103,6 +103,7 @@ describe('couch-url-rewrite-proxy', function () {
       json: true
     }, function (err, res, body) {
       if (err) return done(err)
+      res.headers['content-type'].should.equal('application/json; charset=utf-8')
       json.done()
       Object.keys(body.versions).forEach((version) => {
         body.versions[version].dist.tarball.should.match(/http:\/\/www.example.com\/e\/express\/_attachments\/express-.*/)
